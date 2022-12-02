@@ -1,6 +1,6 @@
 # Advent of Code 2022 in Rust
 
-These are my solutions to [Advent of Code](https://adventofcode.com/2021).
+These are my solutions to [Advent of Code](https://adventofcode.com).
 You will need [cargo-aoc](https://github.com/gobanos/cargo-aoc) to run them.
 
 ```sh
