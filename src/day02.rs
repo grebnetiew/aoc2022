@@ -34,7 +34,7 @@ pub fn part1(input: &[[char; 2]]) -> u32 {
 pub fn part2(input: &[[char; 2]]) -> u32 {
     input
         .iter()
-        // Returns your score. ABC (them) is rock, paper and scissors, XYZ
+        // Returns your score. ABC (them) is rock, paper and scissors, ZYX
         // (winning-drawing-losing) is 6-3-0, and the choice you have to make
         // to get that outcome gets you 1-2-3 points for rock-paper-scissors.
         .map(|pair| match pair {
