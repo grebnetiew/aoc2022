@@ -28,13 +28,15 @@ pub fn part1(input: &[[char; 2]]) -> u32 {
         })
         .sum()
 }
+
 /// Returns the total score.
 #[aoc(day2, part2)]
 pub fn part2(input: &[[char; 2]]) -> u32 {
     input
         .iter()
-        // Returns your score. ABC (them) and XYZ (you) are rock, paper and
-        // scissors scoring 1-2-3 for your choice; winning-drawing-losing is 6-3-0.
+        // Returns your score. ABC (them) is rock, paper and scissors, XYZ
+        // (winning-drawing-losing) is 6-3-0, and the choice you have to make
+        // to get that outcome gets you 1-2-3 points for rock-paper-scissors.
         .map(|pair| match pair {
             ['A', 'X'] => 3 + 0,
             ['A', 'Y'] => 1 + 3,
