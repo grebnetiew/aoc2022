@@ -55,7 +55,7 @@ pub fn intersect3(three_hashsets: &[HashSet<u8>]) -> u8 {
 pub fn part2(input: &[(HashSet<u8>, HashSet<u8>)]) -> u32 {
     let merged: Vec<HashSet<u8>> = input
         .iter()
-        .map(|pair| pair.0.union(&pair.1).cloned().collect::<HashSet<u8>>())
+        .map(|pair| pair.0.union(&pair.1).cloned().collect())
         .collect();
     merged.chunks(3).map(intersect3).map(priority).sum()
 }
@@ -65,12 +65,12 @@ mod tests {
     use super::*;
 
     const TEST_INPUT: &str = "\
-    	vJrwpWtwJgWrhcsFMMfFFhFp\n\
-		jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\n\
-		PmmdzqPrVvPwwTWBwg\n\
-		wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\n\
-		ttgJtRGJQctTZtZT\n\
-		CrZsJsPPZsGzwwsLwLmpwMDw";
+        vJrwpWtwJgWrhcsFMMfFFhFp\n\
+        jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\n\
+        PmmdzqPrVvPwwTWBwg\n\
+        wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\n\
+        ttgJtRGJQctTZtZT\n\
+        CrZsJsPPZsGzwwsLwLmpwMDw";
 
     #[test]
     fn sample1() {
