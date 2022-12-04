@@ -13,6 +13,7 @@ pub fn u8_space_u8_per_line(input: &str) -> Vec<[u8; 2]> {
 /// Returns the total score.
 #[aoc(day2, part1)]
 pub fn part1(input: &[[u8; 2]]) -> u32 {
+    #[allow(clippy::identity_op)]
     input
         .iter()
         // Returns your score. ABC (them) and XYZ (you) are rock, paper and
@@ -35,6 +36,7 @@ pub fn part1(input: &[[u8; 2]]) -> u32 {
 /// Returns the total score.
 #[aoc(day2, part2)]
 pub fn part2(input: &[[u8; 2]]) -> u32 {
+    #[allow(clippy::identity_op)]
     input
         .iter()
         // Returns your score. ABC (them) is rock, paper and scissors, ZYX
