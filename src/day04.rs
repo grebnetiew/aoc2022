@@ -1,18 +1,28 @@
+/// Error type that results from `two_ranges_comma_separated`, and
+/// can communicate both invalid numbers (e.g. `3-4,5-hi`) and incorrect
+/// amounts of numbers (e.g. `1-2,3`).
+#[derive(Debug)]
+pub enum ParseError {
+    /// An invalid digit was encountered
+    ParseIntError(std::num::ParseIntError),
+    /// Too few or too many numbers were encountered
+    AmountOfNumbersError(usize),
+}
+
+use ParseError::*;
+
 /// Expects lines of the form `u32-u32,u32-u32` and returns the four
 /// numbers as arrays.
 #[aoc_generator(day4)]
-pub fn two_ranges_comma_separated(input: &str) -> Result<Vec<[u32; 4]>, std::num::ParseIntError> {
+pub fn two_ranges_comma_separated(input: &str) -> Result<Vec<[u32; 4]>, ParseError> {
     input
         .lines()
         .map(|l| {
-            Ok(l.split(',')
-                .map(|s| s.split('-').map(str::parse).filter_map(Result::ok))
-                .flatten()
-                .collect::<Vec<u32>>()
+            l.split(',')
+                .flat_map(|s| s.split('-').map(|s| s.parse().map_err(ParseIntError)))
+                .collect::<Result<Vec<u32>, _>>()?
                 .try_into()
-                // Would be better to return an error here too but
-                // too much work ;)
-                .expect("not all lines contain four numbers"))
+                .map_err(|v: Vec<_>| AmountOfNumbersError(v.len()))
         })
         .collect()
 }
@@ -60,3 +70,14 @@ mod tests {
         assert_eq!(part2(&two_ranges_comma_separated(TEST_INPUT).unwrap()), 4);
     }
 }
+
+impl std::fmt::Display for ParseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ParseIntError(inner) => std::fmt::Display::fmt(inner, f),
+            AmountOfNumbersError(n) => write!(f, "a line contained {n} numbers instead of 4"),
+        }
+    }
+}
+
+impl std::error::Error for ParseError {}
