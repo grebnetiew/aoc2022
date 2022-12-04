@@ -18,8 +18,8 @@ pub fn two_ranges_comma_separated(input: &str) -> Result<Vec<[u32; 4]>, ParseErr
     input
         .lines()
         .map(|l| {
-            l.split(',')
-                .flat_map(|s| s.split('-').map(|s| s.parse().map_err(ParseIntError)))
+            l.split(&[',', '-'])
+                .map(|s| s.parse().map_err(ParseIntError))
                 .collect::<Result<Vec<u32>, _>>()?
                 .try_into()
                 .map_err(|v: Vec<_>| AmountOfNumbersError(v.len()))
